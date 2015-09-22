@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+<!-- component-scan을 통해controller특정 어노테이션에 있는 하위페이지들은 다 등록을 시킴 -->
+<context:component-scan base-package="com.webapp.controller"/>
+
+<!-- 디스패쳐 서블릿이 이름을 검색하여 처리하기 때문에 아이디를 정확하게 줘야함! 아이디 고정! 다른이름으로 주면 안됨! -->
+<!-- ## 다국어 처리를 위해 : 메세지 처리, 프로퍼티 파일을 번들이라고함 -->
+<!-- MessageSource -->
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	<property name="basenames">
+		<list>
+			<!-- base name 번들이름을 넣어줌 -->
+			<value>message.label</value>
+			<value>message.error</value>
+		</list>
+	</property>
+	<property name="fallbackToSystemLocale" value="false"></property>
+</bean>
+
+<!-- LocaleResolver -->
+<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+<!-- id 설정은 필요없다 -->
+<bean class="com.webapp.validator.MemberCommandValidator"/>
+</beans>

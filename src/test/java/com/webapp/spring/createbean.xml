@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+<!-- id는 생략가능함 / new를 통해서 생성하지 말고 static 메서드를 통해서 객체를 만들어내는 경우 -->
+<!-- factory-method가 없으면 new를 통해서 생성한다. -->
+<bean id="cityDao" class="com.webapp.spring.CityDao" factory-method="newInstance">
+
+</bean>
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+	<property name="username">
+		<value>scott</value>
+	</property>
+	<property name="password">
+		<value>tiger</value>
+	</property>
+	<property name="maxActive" value="10"/>
+	<property name="maxWait" value="-1"/>
+	
+</bean>
+<!-- Spring과 mybatis연계핵심 SqlSessionFactoryBean -->
+<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+<!-- 	mybais위치 알려주기 -->
+<!-- mybatis/mybatis_config.xml에 설정되어있는 데이터설정은 오버라이딩되어 처리되지 않음 -->
+	<property name="configLocation" value="mybatis/mybatis_config.xml"/>
+	<property name="dataSource" ref="dataSource"/>
+</bean>
+
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg ref="sqlSessionFactoryBean"/>
+</bean>
+
+
+<!-- <bean id="myFactoryBean" class="com.webapp.spring.MyFactoryBean"> -->
+<!-- </bean> -->
+	
+</beans>
