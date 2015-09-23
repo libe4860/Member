@@ -55,9 +55,9 @@
 		<param-name>spring.profiles.active</param-name>
 		<param-value>
 <!-- 			oracle, spring -->
-			oracle, mybatis
+<!-- 			oracle, mybatis -->
 <!-- 			mysql, spring -->
-<!-- 			mysql, mybatis -->
+			mysql, mybatis
 		</param-value>
 	</context-param>
 

@@ -18,7 +18,6 @@ public class MemberDaoTest {
 		ctx.refresh();
 		
 		MemberDao dao = ctx.getBean("mybatisMemberDao", MemberDao.class);
-//		MemberDao dao = ctx.getBean("springMemberDao", MemberDao.class);
 		
 		List<Member> list = dao.selectAll();
 		for(Member m : list){
